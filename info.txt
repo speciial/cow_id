@@ -1,0 +1,22 @@
+================
+===== INFO =====
+================
+
+machine learning:
+
+
+image classification:
+    classification means to find out whether something
+    is of a certain type (categorisation)
+
+    workflow:   1. import data
+                2. organize and process data
+                (iterate over these)
+                    3. explore data and engineer features (if needed)
+                    4. build model
+                    5. evaluate model
+                6. deploy model for use
+
+
+image recognition:
+
