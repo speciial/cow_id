@@ -13,6 +13,9 @@ This project takes a look at image based identification of individual cows. Thou
   - Which feature extraction method?
   - Which classifier?
 
+# Documentation
+1. [Initial Tests](documentation/initial_tests.md) - Some very simple test carried out with an early version of the "KuhR-Code Generator" and a simple SVM classifier.
+
 # Unordered list of things I learned
 ## Image recognition process
 On a high level, image recognition is pretty straight forward. First, you create a set of training and test data. The training set (training images) is then being pre-processed to simplify the next steps and make the model more accurate. After that, features are extracted from the images. This step can either be done manually or automatically using deep learning (see [here](#Machine-Learning-vs-Deep-Learning)). Once the features are extraced and prepared, a classifier is trained. The test set (test images) are used to evaluate the accuracy of the classifier. Different kinds of feature extraction and classification methods can be combined to improve the results. 
