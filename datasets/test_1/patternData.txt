@@ -1,0 +1,6 @@
+imageWidth:128
+imageHeight:128
+seed:23453245
+frequency:0,030000
+binaryThreshold:0,500000
+noiseType:Perlin
