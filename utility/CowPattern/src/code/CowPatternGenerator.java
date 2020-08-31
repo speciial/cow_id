@@ -9,7 +9,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Formatter;
 
 public class CowPatternGenerator
 {
@@ -127,20 +129,54 @@ public class CowPatternGenerator
     {
         try
         {
+            savePatternData(dataSetGenMenu.getOutputDir());
+
+            File outputFile = new File(dataSetGenMenu.getOutputDir() + "\\original.png");
+
+            if (outputFile.getParentFile().mkdirs())
+            {
+                System.out.println("Directory created");
+            }
+
+            if (outputFile.createNewFile())
+            {
+                ImageIO.write(baseImage, "png", outputFile);
+            }
+
             for (int index = 0; index < images.length; index++)
             {
-                File outputFile = new File(dataSetGenMenu.getOutputDir() + "\\" + index + ".png");
-
-                if (outputFile.getParentFile().mkdirs())
-                {
-                    System.out.println("Directory created");
-                }
+                outputFile = new File(dataSetGenMenu.getOutputDir() + "\\" + index + ".png");
 
                 if (outputFile.createNewFile())
                 {
                     ImageIO.write(images[index], "png", outputFile);
                 }
             }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void savePatternData(String path)
+    {
+        int imageWidth = patternGenMenu.getImageWidth();
+        int imageHeight = patternGenMenu.getImageHeight();
+        int seed = patternGenMenu.getSeed();
+        float frequency = patternGenMenu.getFrequency();
+        float binaryThreshold = patternGenMenu.getBinaryThreshold();
+        FastNoise.NoiseType noiseType = patternGenMenu.getNoiseType();
+
+        StringBuilder builder = new StringBuilder();
+        Formatter formatter = new Formatter(builder);
+        formatter.format("imageWidth:%d%nimageHeight:%d%nseed:%d%nfrequency:%f%nbinaryThreshold:%f%nnoiseType:%s%n",
+                imageWidth, imageHeight, seed, frequency, binaryThreshold, noiseType.name());
+
+        try
+        {
+            FileWriter myWriter = new FileWriter(path + "\\patternData.txt");
+            myWriter.write(builder.toString());
+            myWriter.close();
         } catch (IOException e)
         {
             e.printStackTrace();
