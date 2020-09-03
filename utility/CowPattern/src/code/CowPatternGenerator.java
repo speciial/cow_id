@@ -129,8 +129,6 @@ public class CowPatternGenerator
     {
         try
         {
-            savePatternData(dataSetGenMenu.getOutputDir());
-
             File outputFile = new File(dataSetGenMenu.getOutputDir() + "\\original.png");
 
             if (outputFile.getParentFile().mkdirs())
@@ -152,6 +150,9 @@ public class CowPatternGenerator
                     ImageIO.write(images[index], "png", outputFile);
                 }
             }
+
+            savePatternData(dataSetGenMenu.getOutputDir());
+
         } catch (IOException e)
         {
             e.printStackTrace();

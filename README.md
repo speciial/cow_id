@@ -16,6 +16,7 @@ This project takes a look at image based identification of individual cows. Thou
 # Documentation
 1. [Initial Tests](documentation/initial_tests.md) - Some very simple test carried out with an early version of the "KuhR-Code Generator" and a simple SVM classifier.
 2. [MATLAB Functions](documentation/matlab_functions.md) - Overview and research done on MATLAB functions for feature detection, extraction and matching.
+3. [SURF Test](documentation/surf_test.md) - Using "bag of features" for classification using SURF
 
 # Unordered list of things I learned
 ## Image recognition process

@@ -1,2 +1,4 @@
 utility/CowPatternGenerator
 datasets/full_cow
+datasets/full_dataset
+matlab/surf_training/full_dataset
