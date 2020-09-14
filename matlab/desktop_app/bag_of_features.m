@@ -6,8 +6,12 @@ function bag_of_features(imds)
 
 extractor = @custom_extractor;
 bag = bagOfFeatures(trainingSet, "CustomExtractor", extractor);
+% save bag here
+save("bof.mat", "bag");
 
 categoryClassifier = trainImageCategoryClassifier(trainingSet, bag);
+% save bag here
+save("classifier.mat", "categoryClassifier");
 
 confMatrix = evaluate(categoryClassifier, trainingSet);
 % save matrix here
