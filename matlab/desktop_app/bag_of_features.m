@@ -1,17 +1,22 @@
 function bag_of_features(imds)
 %BAG_OF_FEATURES Summary of this function goes here
-%   Detailed explanation goes here
 
-[trainingSet, validationSet] = splitEachLabel(imds, 0.6, "randomize");
+storage = app_storage.instance();
 
-extractor = @custom_extractor;
-bag = bagOfFeatures(trainingSet, "CustomExtractor", extractor);
-% save bag here
-save("bof.mat", "bag");
+[trainingSet, validationSet] = splitEachLabel(imds, 0.7, "randomize");
 
-categoryClassifier = trainImageCategoryClassifier(trainingSet, bag);
-% save bag here
-save("classifier.mat", "categoryClassifier");
+if storage.BOFisset == false
+    extractor = @custom_extractor;
+    storage.selectedBOF = bagOfFeatures(trainingSet, "CustomExtractor", extractor);
+
+    disp(storage.shouldExportBOF);
+    
+    if storage.shouldExportBOF
+        save("bof.mat", "storage.selectedBOF");
+    end 
+end
+
+categoryClassifier = trainImageCategoryClassifier(trainingSet, storage.selectedBOF);
 
 confMatrix = evaluate(categoryClassifier, trainingSet);
 % save matrix here

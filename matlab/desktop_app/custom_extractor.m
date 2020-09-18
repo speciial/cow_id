@@ -4,9 +4,9 @@ grayImage = rgb2gray(image);
 
 storage = app_storage.instance();
 
-points = detect_points(grayImage, storage.detectionMethod);
+points = detect_points(grayImage, storage);
 
-[features, ~] = extract_features(grayImage, points, storage.extractionMethod);
+[features, ~] = extract_features(grayImage, points, storage);
 
 featureMetrics = points.Metric;
 

@@ -4,9 +4,12 @@ classdef app_storage
     
     properties
         % Others
+        imageData;
+        BOFisset;
         selectedBOF;
         shouldExportBOF;
         shouldExportImages;
+        dataDirectory;
         outputDirectory;
         
         % Methods
@@ -44,13 +47,58 @@ classdef app_storage
         d_orb_numDecompLevels;
         
         % Extraction Method Parameter
+        e_hog_cellSize;
+        e_hog_blockSize;
+        e_hog_numBins;
         
+        e_surf_featureSize;
+        
+        e_kaze_featureSize;
     end
     
     methods(Access=private)
         function obj = app_storage()
+            obj.BOFisset = false;
+            
             obj.detectionMethod = "SURF";
             obj.extractionMethod = "SURF";
+            
+            obj.d_fast_minQuality = 0.1;
+            obj.d_fast_minContrast = 0.2;
+        
+            obj.d_mineig_minQuality = 0.01;
+            obj.d_mineig_filterSize = 5;
+        
+            obj.d_harris_minQuality = 0.01;
+            obj.d_harris_filterSize = 5;
+        
+            obj.d_surf_metricThreshold = 1000;
+            obj.d_surf_numOctaves = 3;
+            obj.d_surf_numScaleLevels = 4;
+        
+            obj.d_kaze_diffusion = "region";
+            obj.d_kaze_threshold = 0.0001;
+            obj.d_kaze_numOctaves = 3;
+            obj.d_kaze_numScaleLevels = 3;
+        
+            obj.d_brisk_minQuality = 0.1;
+            obj.d_brisk_minContrast = 0.2;
+            obj.d_brisk_numOctaves = 4;
+        
+            obj.d_mser_thresholdDelta = 2;
+            obj.d_mser_regionAreaRange = [30 14000];
+            obj.d_mser_maxAreaVariation = 0.25;
+        
+            obj.d_orb_scaleFactor = 1.2;
+            obj.d_orb_numDecompLevels = 8;
+        
+            obj.e_hog_cellSize = [8 8];
+            obj.e_hog_blockSize = [2 2];
+            obj.e_hog_numBins = 9;
+        
+            obj.e_surf_featureSize = 64;
+        
+            obj.e_kaze_featureSize = 64;
         end 
     end 
     
