@@ -1,4 +1,4 @@
-classdef app_storage
+classdef app_storage < handle
     %APP_STORAGE Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -11,6 +11,7 @@ classdef app_storage
         shouldExportImages;
         dataDirectory;
         outputDirectory;
+        resultAccuracy;
         
         % Methods
         detectionMethod;
@@ -58,7 +59,9 @@ classdef app_storage
     
     methods(Access=private)
         function obj = app_storage()
-            obj.BOFisset = false;
+            obj.BOFisset = 0;
+            
+            obj.shouldExportBOF = 0;
             
             obj.detectionMethod = "SURF";
             obj.extractionMethod = "SURF";
