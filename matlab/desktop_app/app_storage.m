@@ -5,10 +5,14 @@ classdef app_storage < handle
     properties
         % Others
         imageData;
+        
         BOFisset;
+        CLASSisset;
         selectedBOF;
+        selectedClassifier;
         shouldExportBOF;
-        shouldExportImages;
+        shouldExportClassifier;
+        
         dataDirectory;
         outputDirectory;
         resultAccuracy;
@@ -62,6 +66,7 @@ classdef app_storage < handle
             obj.BOFisset = 0;
             
             obj.shouldExportBOF = 0;
+            obj.shouldExportClassifier = 0;
             
             obj.detectionMethod = "SURF";
             obj.extractionMethod = "SURF";
