@@ -25,9 +25,6 @@ classdef app_storage < handle
         d_fast_minQuality;
         d_fast_minContrast;
         
-        d_mineig_minQuality;
-        d_mineig_filterSize;
-        
         d_harris_minQuality;
         d_harris_filterSize;
         
@@ -43,10 +40,6 @@ classdef app_storage < handle
         d_brisk_minQuality;
         d_brisk_minContrast;
         d_brisk_numOctaves;
-        
-        d_mser_thresholdDelta;
-        d_mser_regionAreaRange;
-        d_mser_maxAreaVariation;
         
         d_orb_scaleFactor;
         d_orb_numDecompLevels;
@@ -74,9 +67,6 @@ classdef app_storage < handle
             obj.d_fast_minQuality = 0.1;
             obj.d_fast_minContrast = 0.2;
         
-            obj.d_mineig_minQuality = 0.01;
-            obj.d_mineig_filterSize = 5;
-        
             obj.d_harris_minQuality = 0.01;
             obj.d_harris_filterSize = 5;
         
@@ -92,10 +82,6 @@ classdef app_storage < handle
             obj.d_brisk_minQuality = 0.1;
             obj.d_brisk_minContrast = 0.2;
             obj.d_brisk_numOctaves = 4;
-        
-            obj.d_mser_thresholdDelta = 2;
-            obj.d_mser_regionAreaRange = [30 14000];
-            obj.d_mser_maxAreaVariation = 0.25;
         
             obj.d_orb_scaleFactor = 1.2;
             obj.d_orb_numDecompLevels = 8;

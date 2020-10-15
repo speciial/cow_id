@@ -1,9 +1,13 @@
 function bag_of_features(imds, storage, wb)
 %BAG_OF_FEATURES Summary of this function goes here
 
-wb = waitbar(0, wb, "Splitting Labels");
+wb = waitbar(0, wb, "Saving Settings");
 
-[trainingSet, validationSet] = splitEachLabel(imds, 0.7, "randomize");
+settings_io.writeSettingsToFile(storage.outputDirectory);
+
+waitbar(0.05, wb, "Splitting Labels");
+
+[trainingSet, validationSet] = splitEachLabel(imds, 0.6);
 
 if (storage.BOFisset == 0) && (storage.CLASSisset == 0)
     extractor = @custom_extractor;
@@ -12,14 +16,14 @@ if (storage.BOFisset == 0) && (storage.CLASSisset == 0)
     storage.selectedBOF = bagOfFeatures(trainingSet, "CustomExtractor", extractor);
         
     if storage.shouldExportBOF
-        waitbar(0.4, wb, "Saveing BoF");
+        waitbar(0.2, wb, "Saveing BoF");
         bag = storage.selectedBOF;
         save(strcat(storage.outputDirectory, "\", storage.detectionMethod, "_", storage.extractionMethod, ".mat"), "bag");
     end 
 end
 
 if storage.CLASSisset == 0
-    waitbar(0.5, wb, "Training Classifier");
+    waitbar(0.3, wb, "Training Classifier");
     storage.selectedClassifier = trainImageCategoryClassifier(trainingSet, storage.selectedBOF);
 
     if storage.shouldExportClassifier
@@ -29,15 +33,24 @@ if storage.CLASSisset == 0
     end 
 end 
 
-waitbar(0.7, wb, "Testing with training data");
-confMatrix = evaluate(storage.selectedClassifier, trainingSet);
-% save matrix here
+waitbar(0.6, wb, "Running Evaluate");
+trainConfMat = evaluate(storage.selectedClassifier, trainingSet);
+testConfMat = evaluate(storage.selectedClassifier, validationSet);
+storage.resultAccuracy = mean(diag(testConfMat));
 
-waitbar(0.85, wb, "Testing with test data");
-confMatrix = evaluate(storage.selectedClassifier, validationSet);
-% save matrix here
+waitbar(0.8, wb, "Running Predict");
+[trainLabelIndex, trainScore] = predict(storage.selectedClassifier, trainingSet);
+[testLabelIndex, testScore] = predict(storage.selectedClassifier, validationSet);
 
-storage.resultAccuracy = mean(diag(confMatrix));
+writecell(imds.Files, strcat(storage.outputDirectory, "\file_list_in_order.xls"));
+writematrix(trainConfMat, strcat(storage.outputDirectory, "\trainconfmat.xls"));
+writematrix(testConfMat, strcat(storage.outputDirectory, "\testconfmat.xls"));
+
+writematrix(trainLabelIndex, strcat(storage.outputDirectory, "\trainlabelindex.xls"))
+writematrix(trainScore, strcat(storage.outputDirectory, "\trainscore.xls"));
+
+writematrix(testLabelIndex, strcat(storage.outputDirectory, "\testlabelindex.xls"))
+writematrix(testScore, strcat(storage.outputDirectory, "\testscore.xls"));
 
 waitbar(1, wb, "Done!");
 

@@ -12,7 +12,7 @@ featureMetrics = points.Metric;
 
 if nargout > 2
     % Return feature location information
-    varargout{1} = multiscaleGridPoints.Location;
+    varargout{1} = points.Location;
 end
 
 end
